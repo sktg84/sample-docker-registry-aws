@@ -7,6 +7,7 @@ USAGE
 
   terraform init 
   terraform apply
+  chmod 700 ./keys/*
   make ssh
 
 
