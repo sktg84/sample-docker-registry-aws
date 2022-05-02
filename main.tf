@@ -41,7 +41,7 @@ resource "aws_security_group" "allow-registry-ingress" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  tags {
+  tags = {
     Name = "allow_registry-ingress"
   }
 }
@@ -67,7 +67,7 @@ resource "aws_security_group" "allow-ssh-and-egress" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  tags {
+  tags = {
     Name = "allow_ssh-and-egress"
   }
 }
@@ -81,7 +81,7 @@ resource "aws_security_group" "allow-ssh-and-egress" {
 data "template_file" "registry-config" {
   template = "${file("./registry.yml.tpl")}"
 
-  vars {
+  vars = {
     bucket = "${var.bucket}"
     region = "${var.region}"
   }
