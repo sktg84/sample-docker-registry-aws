@@ -1,6 +1,14 @@
 DESCRIPTION
 
   Example of how to deploy a private Docker registry in EC2 machines making use of S3 to back up the storage layer.
+Pre-req:
+========
+install terraform as: 
+ wget https://releases.hashicorp.com/terraform/1.1.9/terraform_1.1.9_linux_amd64.zip
+ unzip terraform_1.1.9_linux_amd64.zip
+ ./terraform -version
+  echo $"export PATH=\$PATH:$(pwd)" >> ~/.bash_profile
+  source ~/.bash_profile
 
 
 Infra Creation:
