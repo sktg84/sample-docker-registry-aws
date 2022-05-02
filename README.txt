@@ -1,4 +1,5 @@
 DESCRIPTION
+============
 
   Example of how to deploy a private Docker registry in EC2 machines making use of S3 to back up the storage layer.
 Pre-req:
