@@ -10,6 +10,25 @@ install terraform as:
  ./terraform -version
   echo $"export PATH=\$PATH:$(pwd)" >> ~/.bash_profile
   source ~/.bash_profile
+  
+Manual configs -- Pre-req:
+==========================
+[root@ip-172-31-11-145 bpa-docker-registry-aws]# ls -al ~/.aws/
+total 8
+drwxr-xr-x 2 root root  39 Apr 20 08:34 .
+dr-xr-x--- 9 root root 249 May  2 11:37 ..
+-rw-r--r-- 1 root root  39 Apr 20 06:51 config
+-rw-r--r-- 1 root root 113 Apr 20 08:34 credentials
+
+[root@ip-172-31-11-145 bpa-docker-registry-aws]# cat ~/.aws/config
+[default]
+region=us-west-2
+output=json
+
+[root@ip-172-31-11-145 bpa-docker-registry-aws]# cat ~/.aws/credentials
+[default]
+aws_access_key_id=AKxxxxxxxxxxxxxxxxxxxxxx
+aws_secret_access_key= Wt5xxxxxxxxxxxxxxxxxxxxx
 
 
 Infra Creation:
