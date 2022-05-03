@@ -104,6 +104,71 @@ curl -sSNL -u 'user:password' http://172.17.0.2:5000/v2/alpine/tags/list
 {"name":"alpine","tags":["3.4"]}
  
  
+ Load Docker images from local
+ ==============================
+1. Pull the image that is desired and check in local repo:
+
+ root@ip-172-31-28-123:~# docker pull node
+Using default tag: latest
+latest: Pulling from library/node
+6aefca2dc61d: Pull complete
+967757d56527: Pull complete
+c357e2c68cb3: Pull complete
+c766e27afb21: Pull complete
+32a180f5cf85: Pull complete
+3507b5066a40: Pull complete
+fa4934a906af: Pull complete
+fd7c6a234db2: Pull complete
+e9fdaad45501: Pull complete
+Digest: sha256:e5b7b349d517159246070bf14242027a9e220ffa8bd98a67ba1495d969c06c01
+Status: Downloaded newer image for node:latest
+
+root@ip-172-31-28-123:~# docker image ls
+REPOSITORY               TAG                 IMAGE ID            CREATED             SIZE
+node                     latest              738d733448be        12 days ago         995MB
+java                     latest              d23bdf5b1b1b        5 years ago         643MB
+
+2. Save the image as tarball 
+
+root@ip-172-31-28-123:~# docker save --output node.tar node:latest
+
+root@ip-172-31-28-123:~# ls -alh
+total 973M
+-rw-------  1 root root 973M May  3 09:26 node.tar
+
+3. To load and validate remove the local image downloaded in step 1. 
+ root@ip-172-31-28-123:~# docker image rm node
+Untagged: node:latest
+Untagged: node@sha256:e5b7b349d517159246070bf14242027a9e220ffa8bd98a67ba1495d969c06c01
+Deleted: sha256:738d733448be00c72cb6618b7a06a1424806c6d239d8885e92f9b1e8727092b5
+
+root@ip-172-31-28-123:~# docker images
+REPOSITORY               TAG                 IMAGE ID            CREATED             SIZE
+java                     latest              d23bdf5b1b1b        5 years ago         643MB
+
+4. Load the tar file to local repo: 
+root@ip-172-31-28-123:~# docker image load --input node.tar
+a13c519c6361: Loading layer [==================================================>]  129.1MB/129.1MB
+Loaded image: node:latest
+
+root@ip-172-31-28-123:~# docker image ls
+REPOSITORY               TAG                 IMAGE ID            CREATED             SIZE
+node                     latest              738d733448be        12 days ago         995MB
+java                     latest              d23bdf5b1b1b        5 years ago         643MB
+
+5. Tag and load to the local registry as before:
+
+root@ip-172-31-28-123:~# docker tag node:latest 172.17.0.2:5000/node:latest
+root@ip-172-31-28-123:~# docker push 172.17.0.2:5000/node:latest
+The push refers to repository [172.17.0.2:5000/node]
+adcd0466d8b3: Pushed
+a13c519c6361: Pushed
+latest: digest: sha256:c566a021114bb1e47f7c701dda598b91dfa69101638b22a207414d481d4a9d49 size: 2215
+
+6. Validate via _catalog call: 
+root@ip-172-31-28-123:~# curl -sSNL -u 'user:password' http://172.17.0.2:5000/v2/_catalog
+{"repositories":["alpine","java","node"]}
+
 
 KNOW MORE
 =========
