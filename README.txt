@@ -94,12 +94,20 @@ docker push 172.17.0.2:5000/alpine:3.4  --> push to local
 curl -sSNL -u 'user:password' http://172.17.0.2:5000/v2/_catalog
 {"repositories":["alpine"]}
 
+curl -sSNL -u 'user:password' http://172.17.0.2:5000/v2/_catalog
+{"repositories":["alpine","java"]}
+
+curl -sSNL -u 'user:password' http://172.17.0.2:5000/v2/java/tags/list
+{"name":"java","tags":["latest"]}
+
+curl -sSNL -u 'user:password' http://172.17.0.2:5000/v2/alpine/tags/list
+{"name":"alpine","tags":["3.4"]}
  
  
 
 KNOW MORE
 =========
+https://docs.docker.com/registry/spec/api/
 https://docs.docker.com/registry/deploying/
 https://ops.tips/gists/aws-s3-private-docker-registry
-
 https://icicimov.github.io/blog/docker/Docker-Private-Registry-with-S3-backend-on-AWS/
