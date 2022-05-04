@@ -168,6 +168,7 @@ latest: digest: sha256:c566a021114bb1e47f7c701dda598b91dfa69101638b22a207414d481
 6. Validate via _catalog call: 
 root@ip-172-31-28-123:~# curl -sSNL -u 'user:password' http://172.17.0.2:5000/v2/_catalog
 {"repositories":["alpine","java","node"]}
+http://ec2-3-88-187-171.compute-1.amazonaws.com:5000/v2/_catalog
 
 
 KNOW MORE
